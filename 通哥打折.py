@@ -68,6 +68,6 @@ def main():
 
 
 if __name__ == "__main__":
-    # pwd = input('标请夺Pls enter the password: 请请请')
+    # pwd = input('Pls enter the password: ')
     # main(pwd)
     main()

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-
 import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -50,7 +49,7 @@ def main():
     end_time_input = end_time.find_element_by_tag_name('input')
     end_time_input.click()
     time.sleep(3)
-    end_time_input.send_keys(Keys.CONTROL,'a')
+    end_time_input.send_keys(Keys.CONTROL, 'a')
     time.sleep(1)
     end_time.find_element_by_tag_name('input').send_keys('23:59:59')
     time.sleep(1)

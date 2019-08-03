@@ -4,26 +4,32 @@ from selenium import webdriver
 
 import time
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 
 def main():
-    browser = webdriver.Chrome()
-    browser.maximize_window()
-    url = 'https://gsp.aliexpress.com/apps/promotion/single/index'
-    browser.get(url)
+    chrome_options = Options()
+    chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
+    browser = webdriver.Chrome(options=chrome_options)
     browser.implicitly_wait(60)
+    # browser.get('https://me.csdn.net/ywah6666')
+    # browser = webdriver.Chrome()
+    # browser.maximize_window()
+    # url = 'https://gsp.aliexpress.com/apps/promotion/single/index'
+    # browser.get(url)
+    # browser.implicitly_wait(60)
 
-    browser.switch_to.frame('alibaba-login-box')
-    username = browser.find_element_by_id('fm-login-id')
-    username.clear()
-    username.send_keys('order@caryelectronic.com')
-    pwd = browser.find_element_by_id('fm-login-password')
-    pwd.clear()
-    time.sleep(2)
-    pwd.send_keys('')
-    time.sleep(1)
-    browser.find_element_by_class_name('password-login').click()
-    time.sleep(8)
+    # browser.switch_to.frame('alibaba-login-box')
+    # username = browser.find_element_by_id('fm-login-id')
+    # username.clear()
+    # username.send_keys('order@caryelectronic.com')
+    # pwd = browser.find_element_by_id('fm-login-password')
+    # pwd.clear()
+    # time.sleep(2)
+    # pwd.send_keys(password)
+    # time.sleep(1)
+    # browser.find_element_by_class_name('password-login').click()
+    # time.sleep(8)
     browser.find_element_by_name('createPromotion').click()
     time.sleep(5)
     promotion_time = browser.find_element_by_class_name(
@@ -57,9 +63,11 @@ def main():
     browser.find_element_by_class_name('next-btn-primary').click()
 
     time.sleep(12)
-    browser.executeScript("window.open('https://www.baidu.com/')", "")
-    # browser.quit()
+    browser.execute_script("window.open('https://www.baidu.com/')", "")
+    browser.quit()
 
 
 if __name__ == "__main__":
+    # pwd = input('标请夺Pls enter the password: 请请请')
+    # main(pwd)
     main()

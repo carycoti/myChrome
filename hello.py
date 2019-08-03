@@ -12,7 +12,7 @@ def main():
     # url = 'http://www.runoob.com/try/try.php?filename=jqueryui-api-droppable'
     # browser.get(url)
     try:
-        browser.get('https://gsp.aliexpress.com/apps/promotion/single/index')
+        browser.get('https://baidu.com')
     except TimeoutException:
         print('Time Out')
     try:
@@ -20,9 +20,9 @@ def main():
     except NoSuchElementException:
         print('No Element')
     finally:
-
         time.sleep(6)
-        browser.close()
+        browser.quit()
+
 
 if __name__ == "__main__":
     main()

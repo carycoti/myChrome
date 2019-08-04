@@ -103,14 +103,3 @@ from selenium.webdriver.chrome.options import Options
 # time.sleep(1)
 # browser.switch_to.window(browser.window_handles[0])
 # browser.get('https://python.org')
-
-import time
-from selenium import webdriver
-browser = webdriver.Chrome()
-browser.get('https://www.baidu.com/')
-browser.get('https://www.taobao.com/')
-browser.get('https://www.python.org/')
-browser.back()
-time.sleep(1)
-browser.forward()
-browser.close()

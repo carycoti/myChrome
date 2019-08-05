@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import time
 import datetime
+import random
 from selenium.webdriver.common.keys import Keys
 from models import MyDriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -20,18 +21,6 @@ def main():
     driver = MyDriver()
     browser = driver.chrome_dev()
     browser.get(url)
-
-    # browser.switch_to.frame('alibaba-login-box')
-    # username = browser.find_element_by_id('fm-login-id')
-    # username.clear()
-    # username.send_keys('order@caryelectronic.com')
-    # pwd = browser.find_element_by_id('fm-login-password')
-    # pwd.clear()
-    # time.sleep(2)
-    # pwd.send_keys(password)
-    # time.sleep(1)
-    # browser.find_element_by_class_name('password-login').click()
-    # time.sleep(8)
 
     WebDriverWait(browser, 600, 0.5).until(
         EC.presence_of_element_located((By.NAME, 'createPromotion')))
@@ -53,7 +42,7 @@ def main():
     end_time_input.send_keys(Keys.CONTROL, 'a')
     end_time.find_element_by_tag_name('input').send_keys('23:59:59')
     promotion_name = browser.find_element_by_name('promotionName')
-    promotion_name.send_keys(f'{begin_day.month:02}{begin_day.day:02}{end_day.month:02}{end_day.day:02}')
+    promotion_name.send_keys(f'{begin_day.month:02}{begin_day.day:02}{end_day.month:02}{end_day.day:02}{int(random.random()*10000)}')
     browser.find_element_by_class_name('next-btn-primary').click()
 
     WebDriverWait(browser, 120, 1).until(
@@ -73,28 +62,29 @@ def main():
         )
         try:
             browser.find_element_by_class_name('dada-progress-dialog-error-info')
-            browser.find_element(By.CLASS_NAME, 'next-dialog-close-icon').click()
-            time.sleep(2)
+            browser.refresh()
             browser.find_element_by_class_name('dialog-t-button').click()
             discount = browser.find_element_by_class_name('next-input-group-auto-width')
             discount.find_element_by_tag_name('input').send_keys('38')
             browser.find_element_by_class_name('next-dialog-btn').click()
             try:
-                WebDriverWait(browser, 60, 2).until(
+                WebDriverWait(browser, 30, 2).until(
                     EC.presence_of_element_located((By.CLASS_NAME, 'dada-progress-dialog-error-info'))
                 )
-                print('没有添加全部产品，请稍后自行添加1')
+                error_info = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog-error-info').text
+                error_info_link = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog')
+                error_info_link = error_info_link.find_element_by_tag_name('a').get_attribute('href')
+                print(error_info, error_info_link)
             except (TimeoutException, NoSuchElementException):
                 save = browser.find_element(By.CLASS_NAME, 'parent-submitButton')
                 save.find_element(By.CLASS_NAME, 'next-btn-primary').click()
-                print("打折成功1")
+                print("打折成功")
         except (TimeoutException, NoSuchElementException):
             save = browser.find_element(By.CLASS_NAME, 'parent-submitButton')
             save.find_element(By.CLASS_NAME, 'next-btn-primary').click()
-            print("打折成功2")
+            print("打折成功")
     except (TimeoutException, NoSuchElementException):
-        browser.find_element(By.CLASS_NAME, 'next-dialog-close-icon').click()
-        time.sleep(2)
+        browser.refresh()
         browser.find_element_by_class_name('dialog-t-button').click()
         discount = browser.find_element_by_class_name('next-input-group-auto-width')
         discount.find_element_by_tag_name('input').send_keys('38')
@@ -105,8 +95,7 @@ def main():
             )
             try:
                 browser.find_element_by_class_name('dada-progress-dialog-error-info')
-                browser.find_element(By.CLASS_NAME, 'next-dialog-close-icon').click()
-                time.sleep(2)
+                browser.refresh()
                 browser.find_element_by_class_name('dialog-t-button').click()
                 discount = browser.find_element_by_class_name('next-input-group-auto-width')
                 discount.find_element_by_tag_name('input').send_keys('38')
@@ -115,7 +104,10 @@ def main():
                     WebDriverWait(browser, 60, 2).until(
                         EC.presence_of_element_located((By.CLASS_NAME, 'dada-progress-dialog-error-info'))
                     )
-                    print('没有添加全部产品，请稍后自行添加2')
+                    error_info = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog-error-info').text
+                    error_info_link = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog')
+                    error_info_link = error_info_link.find_element_by_tag_name('a').get_attribute('href')
+                    print(error_info, error_info_link)
                 except (TimeoutException, NoSuchElementException):
                     save = browser.find_element(By.CLASS_NAME, 'parent-submitButton')
                     save.find_element(By.CLASS_NAME, 'next-btn-primary').click()
@@ -123,12 +115,16 @@ def main():
                 save = browser.find_element(By.CLASS_NAME, 'parent-submitButton')
                 save.find_element(By.CLASS_NAME, 'next-btn-primary').click()
         except (TimeoutException, NoSuchElementException):
-            print('添加产品失败，请查明原因后重试')
+            error_info = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog-error-info').text
+            error_info_link = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog')
+            error_info_link = error_info_link.find_element_by_tag_name('a').get_attribute('href')
+            print(error_info, error_info_link)
     finally:
         browser.quit()
 
 
 if __name__ == "__main__":
-    # pwd = input('Pls enter the password: ')
-    # main(pwd)
+    start = time.time()
     main()
+    end = time.time()
+    print(end-start)

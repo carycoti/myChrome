@@ -42,7 +42,7 @@ def main():
     end_time_input.send_keys(Keys.CONTROL, 'a')
     end_time.find_element_by_tag_name('input').send_keys('23:59:59')
     promotion_name = browser.find_element_by_name('promotionName')
-    promotion_name.send_keys(f'{begin_day.month:02}{begin_day.day:02}{end_day.month:02}{end_day.day:02}{int(random.random()*10000)}')
+    promotion_name.send_keys(f'{begin_day:%m%d}{end_day:%m%d}{int(random.random()*10000)}')
     browser.find_element_by_class_name('next-btn-primary').click()
 
     WebDriverWait(browser, 120, 1).until(

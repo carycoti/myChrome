@@ -45,11 +45,11 @@ def main():
     promotion_name.send_keys(f'{begin_day:%m%d}{end_day:%m%d}{int(random.random()*10000)}')
     browser.find_element_by_class_name('next-btn-primary').click()
 
-    WebDriverWait(browser, 120, 1).until(
+    WebDriverWait(browser, 120, 0.5).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'dialog-t-button'))
     )
     browser.find_element_by_class_name('dialog-t-button').click()
-    WebDriverWait(browser, 120, 1).until(
+    WebDriverWait(browser, 120, 0.5).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'next-input-group-auto-width'))
     )
     discount = browser.find_element_by_class_name('next-input-group-auto-width')
@@ -57,7 +57,7 @@ def main():
     browser.find_element_by_class_name('next-dialog-btn').click()
 
     try:
-        WebDriverWait(browser, 60, 2).until(
+        WebDriverWait(browser, 60, 0.5).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'next-pagination-ellipsis'))
         )
         try:
@@ -68,7 +68,7 @@ def main():
             discount.find_element_by_tag_name('input').send_keys('38')
             browser.find_element_by_class_name('next-dialog-btn').click()
             try:
-                WebDriverWait(browser, 30, 2).until(
+                WebDriverWait(browser, 30, 0.5).until(
                     EC.presence_of_element_located((By.CLASS_NAME, 'dada-progress-dialog-error-info'))
                 )
                 error_info = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog-error-info').text
@@ -90,7 +90,7 @@ def main():
         discount.find_element_by_tag_name('input').send_keys('38')
         browser.find_element_by_class_name('next-dialog-btn').click()
         try:
-            WebDriverWait(browser, 60, 2).until(
+            WebDriverWait(browser, 60, 0.5).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'next-pagination-ellipsis'))
             )
             try:
@@ -101,7 +101,7 @@ def main():
                 discount.find_element_by_tag_name('input').send_keys('38')
                 browser.find_element_by_class_name('next-dialog-btn').click()
                 try:
-                    WebDriverWait(browser, 60, 2).until(
+                    WebDriverWait(browser, 60, 0.5).until(
                         EC.presence_of_element_located((By.CLASS_NAME, 'dada-progress-dialog-error-info'))
                     )
                     error_info = browser.find_element(By.CLASS_NAME, 'dada-progress-dialog-error-info').text
@@ -124,7 +124,4 @@ def main():
 
 
 if __name__ == "__main__":
-    start = time.time()
     main()
-    end = time.time()
-    print(end-start)

@@ -12,7 +12,7 @@ class MyDriver(object):
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
         browser = webdriver.Chrome(options=chrome_options)
-        browser.implicitly_wait(30)
+        browser.implicitly_wait(20)
         return browser
 
 

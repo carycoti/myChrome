@@ -18,8 +18,11 @@ class NewStock():
         try:
             self.driver.get(self.url)
             stock_table = self.driver.find_element(By.ID, 'flex_apply')
-            stocks = stock_table.find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
-            today_stocks = [i.find_element(By.CSS_SELECTOR, 'td[data-name="stock_cd"]').text for i in stocks if '今日' in i.find_element(By.CSS_SELECTOR, 'td[data-name="apply_dt"]').text]
+            stocks = stock_table.find_element(
+                By.TAG_NAME, 'tbody').find_elements(
+                By.TAG_NAME, 'tr')
+            today_stocks = [i.find_element(By.CSS_SELECTOR, 'td[data-name="stock_cd"]').text for i in stocks if
+                            '今日' in i.find_element(By.CSS_SELECTOR, 'td[data-name="apply_dt"]').text]
             result = 'GOOD LUCK!'
             if len(today_stocks) > 0:
                 for stock in today_stocks:

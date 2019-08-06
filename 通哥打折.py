@@ -18,13 +18,12 @@ class AliDiscount(object):
         self.begin_day = datetime.date(self.end_day.year, self.end_day.month, 1)  # end_day当月第一天，也就是当前日期下个月第一天
 
     def main(self):
-        url = 'https://gsp.aliexpress.com/apps/promotion/single/index'
+        url = 'https://gsp.aliexpress.com/apps/promotion/single/add?spm=5261.promotion_single_index.createPromotion.1.6d793e5f4lpfGX&operation=add'
         browser = MyDriver.chrome_dev()
         browser.get(url)
 
         WebDriverWait(browser, 600, 0.5).until(
-            EC.presence_of_element_located((By.NAME, 'createPromotion')))
-        browser.find_element_by_name('createPromotion').click()
+            EC.presence_of_element_located((By.CLASS_NAME, 'dada-date-with-timezone-wrapper')))
         promotion_time = browser.find_element_by_class_name(
             'dada-date-with-timezone-wrapper')
         promotion_time.find_element_by_class_name(

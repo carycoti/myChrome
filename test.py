@@ -1,11 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-from selenium.webdriver.common.action_chains import ActionChains
-from models import MyDriver
-from selenium.webdriver.common.by import By
+import win32api
 
-driver = MyDriver.chrome_dev()
 
-print(driver.title)
-if 'Error Page' in driver.title:
-    print('yes')
+win32api.MessageBox(0, "这是一个测试提醒OK消息框", "提醒")

@@ -42,7 +42,6 @@ class EbayDiscount():
     def run(self):
         try:
             self.driver.get(self.url)
-            self.driver.maximize_window()
             if 'signin.' in self.driver.current_url:
                 self.login()
             else:

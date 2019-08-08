@@ -27,11 +27,12 @@ class NewStock():
             if len(today_stocks) > 0:
                 for stock in today_stocks:
                     result = f'{stock}\n{result}'
-                result = result.strip(', ')
-                win32api.MessageBox(0, result, "今日可申购新股")
+                result = f'今日可申购新股: \n{result.strip(", ")}'
+                win32api.MessageBox(0, result, "新股申购")
         except (NoSuchElementException, TimeoutException) as e:
             print(e)
         finally:
+            win32api.MessageBox(0, '今日无可申购新股!', "新股申购")
             self.teardown_method()
 
 

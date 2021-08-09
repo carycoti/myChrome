@@ -1,2 +1,2 @@
 selenium==3.141.0
-pywin32==223
+pywin32==301
